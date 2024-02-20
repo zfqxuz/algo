@@ -1,51 +1,32 @@
 from multiprocessing import Pool
 import threading
 
-
-
 class MyProcessThreadPool:
-    def __init__(self, processes=4):
-       pass
+    def __init__(self, processes=4,thread_num=4):
+        self.process_num=processes
+        self.thread_num=thread_num
 
 
     def thread_task(self,*args, **kwargs):
-        # 实例方法，作为线程要执行的任务
-        print(f"Thread task args: {args}, kwargs: {kwargs}")
 
-    def task_with_threads(self):
-        num_threads=4
-        threads = [threading.Thread(target=self.thread_task, args=(i,),kwargs={"msg":"114514"}) for i in range(num_threads)]
+        print(f"ProcessID: {args[0]}, ThreadID: {args[1]}, kwargs: {kwargs}")
+
+    def task_with_threads(self,process_id):
+
+        threads = [threading.Thread(target=self.thread_task, args=(process_id,i),kwargs={"msg":"114514"}) for i in range(self.thread_num)]
         for thread in threads:
             thread.start()
         for thread in threads:
             thread.join()
 
     def turn_on(self):
-        pool=Pool(4)
+        pool=Pool(self.process_num)
         for i in range(4):
-            pool.apply(self.task_with_threads)
-        self.close(pool)
-
-    def print_err(self,e):
-        print(e)
-
-    def close(self,pool):
-        # 关闭进程池，不再接受新的任务
+            pool.apply(self.task_with_threads,args=(i,))
         pool.close()
         pool.join()
-
-
-def task_with_threads():
-    num_threads=4
-    threads = [threading.Thread(target=thread_task, args=(i,),kwargs={"msg":"114514"}) for i in range(num_threads)]
-    for thread in threads:
-        thread.start()
-    for thread in threads:
-        thread.join()
-
-def thread_task(*args, **kwargs):
-    # 实例方法，作为线程要执行的任务
-    print(f"Thread task args: {args}, kwargs: {kwargs}")
+    def print_err(self,e):
+        print(e)
 
 if __name__ == '__main__':
 
