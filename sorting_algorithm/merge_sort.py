@@ -38,6 +38,11 @@ class MergeSorter(Sorter):
         return merged
 
     def suggested(self):
+        '''
+        归并排序（Merge Sort）：
+        归并排序是建立在归并操作上的一种有效的排序算法，该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。
+        归并排序先递归地分解数列，再将它们合并。每次合并操作是将两个排序好的序列合并成一个序列。
+        '''
         def merge_sort(self):
             self.data = self.merge_sort_rec(self.data)
 

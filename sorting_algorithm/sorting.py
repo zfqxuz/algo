@@ -4,8 +4,9 @@ import abc
 
 
 class Sorter(abc.ABC):
-    def __init__(self):
-        self.data = [random.randrange(0, 100) for i in range(20)]
+    def __init__(self,data_length=20):
+        self.data_length=data_length
+        self.data = [random.randrange(0, 100) for i in range(data_length)]
 
     examples = {}
 
@@ -45,3 +46,8 @@ class Sorter(abc.ABC):
                 return func(*args, **kwargs)
             return wrapper
         return decorator
+
+    def sort_on_data(self,data):
+        self.data=data
+        self.sort()
+        return self.data

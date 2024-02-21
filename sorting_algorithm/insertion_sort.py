@@ -16,6 +16,11 @@ class InsertionSorter(Sorter):
         self.data=temp
 
     def suggested(self):
+        '''
+        插入排序（Insertion Sort）：
+        插入排序是一种简单直观的排序算法。它的工作方式是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。
+        插入排序在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序）。
+        '''
         # 遍历从1到数组的长度
         for i in range(1, len(self.data)):
             key = self.data[i]
